@@ -1,6 +1,7 @@
 //Import some lib we needs
 // var React = require('react-native');
-import React from 'react';
+import React from 'react'; // npm install --save moment
+import Moment from 'moment';
 import {
   AppRegistry,
   Text,
@@ -8,15 +9,26 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import DayItems from './src/day-item';
+
 //Create react component
 var Weekdays = React.createClass({
   render: function() {
     return <View style={styles.container}>
-      <Text>
-        Days of Weeks
-      </Text>
+      { this.days() }
     </View>
-  }
+  },
+  days: function(){
+    var dayItems = [];
+    for (var i = 0; i < 7; i++) {
+      var day = Moment().add(i,'day').format('dddd');
+      dayItems.push(
+        <DayItems day={day} key={i} daysUnits={i} />
+      )//end push in array
+    }//end for loop
+    return dayItems;
+  }//end days function
+
 });
 
 //Style react component
